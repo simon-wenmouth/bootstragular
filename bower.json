@@ -1,0 +1,26 @@
+{
+  "name": "bootstragular",
+  "main": "index.js",
+  "version": "1.0.0",
+  "description": "bootstrap angularjs demo",
+  "keywords": [
+    "bootstrap",
+    "angularjs",
+    "grunt",
+    "bower"
+  ],
+  "authors": [
+    "simon wenmouth"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
