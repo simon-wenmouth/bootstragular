@@ -99,11 +99,13 @@ start the web server by running `node .` and kill it with ctrl-c
 
 ```bash
 
-    bower install --save-dev angular
-    mkdir -p app app/controllers app/models app/views
+    bower install --save-dev angular angular-route
+    mkdir -p app app/controllers app/views
+    vi app/app.js
+    vi app/app.routes.js
     vi app/controllers/home.js
     vi app/views/home.html
-    npm install --save-dev grunt-contrib-concat
+    npm install --save-dev grunt-contrib-concat grunt-angular-templates
     vi Gruntfile.js
     grunt
     git add -A
