@@ -117,7 +117,7 @@ start the web server by running `node .` and kill it with ctrl-c
 
 ```bash
 
-    npm install --save-dev grunt-contrib-uglify grunt-gitinfo grunt-preprocess
+    npm install --save-dev less-plugin-autoprefix less-plugin-clean-css grunt-contrib-uglify grunt-gitinfo grunt-preprocess
     vi Gruntfile.js
     vi index.js
     vi public/index.html

@@ -26,7 +26,6 @@ module.exports = function(grunt) {
           build: {
             cwd: 'build/',
             src: [
-                'css/**',
                 'fonts/**'
             ],
             dest: 'dist/<%= gitinfo.local.branch.current.shortSHA %>/',
@@ -34,12 +33,26 @@ module.exports = function(grunt) {
           }
         },
         less: {
-            development: {
+            develop: {
                 options: {
-                    paths: ["less/", "bower_components/bootstrap/less/"]
+                    paths: ["less/", "bower_components/bootstrap/less/"],
+                    sourceMap: true
                 },
                 files: {
                     "build/css/theme.css": "less/theme.less"
+                }
+            },
+            release: {
+                options: {
+                    paths: ["less/", "bower_components/bootstrap/less/"],
+                    sourceMap: true,
+                    plugins: [
+                        (new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]})),
+                        (new (require('less-plugin-clean-css'))({keepSpecialComments: 0}))
+                    ],
+                },
+                files: {
+                    "dist/<%= gitinfo.local.branch.current.shortSHA %>/css/theme.css": "less/theme.less"
                 }
             }
         },
@@ -112,7 +125,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'gitinfo',
-        'less:development',
+        'less:develop',
         'copy:bootstrap',
         'copy:ng',
         'copy:ngRoute',
@@ -121,7 +134,13 @@ module.exports = function(grunt) {
         'preprocess:build']);
 
     grunt.registerTask('dist', [
-        'default',
+        'gitinfo',
+        'less:release',
+        'copy:bootstrap',
+        'copy:ng',
+        'copy:ngRoute',
+        'concat:ngApp',
+        'ngtemplates:app',
         'copy:build',
         'uglify:build',
         'preprocess:dist']);
