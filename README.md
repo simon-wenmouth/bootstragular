@@ -15,7 +15,25 @@
 
     bower install
 
+```
+
+### develop mode
+
+```bash
+
     grunt
+
+    node .
+
+```
+
+### release mode
+
+```bash
+
+    grunt dist
+
+    FOLDER=dist node .
 
 ```
 
