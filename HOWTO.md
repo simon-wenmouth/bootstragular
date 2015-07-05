@@ -51,6 +51,8 @@ i built node from source and installed it into `/opt/`
 
 ```
 
+* c9b5a3346c6a9d16e2d961327332d525c187073c
+
 ### step 1: serve static content
 
 ```bash
@@ -65,6 +67,8 @@ i built node from source and installed it into `/opt/`
 
 start the web server by running `node .` and kill it with ctrl-c
 
+* bb3e521e179973d796aabd30b46a045c8760ed6b
+
 ### step 2: copy public content into the build directory
 
 ```bash
@@ -78,6 +82,8 @@ start the web server by running `node .` and kill it with ctrl-c
     git commit
 
 ```
+
+* 16990599d88df783ac32a3b2427788cd8e142ce1
 
 ### step 3: bootstrap with bower
 
@@ -94,6 +100,8 @@ start the web server by running `node .` and kill it with ctrl-c
     git commit
 
 ```
+
+* b0b4b399ab256a79f2abf4324cbcd4401156d53e
 
 ### step 4: angular with bower
 
@@ -113,6 +121,8 @@ start the web server by running `node .` and kill it with ctrl-c
 
 ```
 
+* 714661eff8690b6526c59abce44e7309fbe1b3c1
+
 ### step 5: preprocess, uglify and otherwise create dist artifacts
 
 ```bash
@@ -127,4 +137,9 @@ start the web server by running `node .` and kill it with ctrl-c
     git commit
 
 ```
+
+* edc6bba844a7803f5715d177aadda90a02ce9bc0
+* f9b1a4b20ec5a0b37d3b6e3afe8827b3864669d1
+* 7d7fbb86f9716507e2329423034548eee69f0c80
+
 

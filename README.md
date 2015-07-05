@@ -37,6 +37,10 @@
 
 ```
 
+## howto
+
+Please see the file [HOWTO.md](HOWTO.md).
+
 ## demonstration
 
 Please see this [projects github pages](http://simon-wenmouth.github.io/bootstragular/).
