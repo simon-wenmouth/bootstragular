@@ -2,14 +2,9 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+        gitinfo: {},
         pkg: grunt.file.readJSON('package.json'),
         copy: {
-          public: {
-            cwd: 'public/',
-            src: '**',
-            dest: 'build/',
-            expand: true
-          },
           bootstrap: {
             cwd: 'bower_components/bootstrap/fonts/',
             src: '**',
@@ -26,6 +21,15 @@ module.exports = function(grunt) {
             cwd: 'bower_components/angular-route/',
             src: 'angular-route*',
             dest: 'build/js/',
+            expand: true
+          },
+          build: {
+            cwd: 'build/',
+            src: [
+                'css/**',
+                'fonts/**'
+            ],
+            dest: 'dist/<%= gitinfo.local.branch.current.shortSHA %>/',
             expand: true
           }
         },
@@ -59,21 +63,67 @@ module.exports = function(grunt) {
                 src: '**/*.html',
                 dest: 'build/js/app.templates.js'
             }
+        },
+        uglify: {
+            build: {
+                options: {
+                    sourceMap: true
+                },
+                files: {
+                    "dist/<%= gitinfo.local.branch.current.shortSHA %>/js/app.js": [
+                        'build/js/angular.js',
+                        'build/js/angular-route.js',
+                        'build/js/app.js',
+                        'build/js/app.templates.js'
+                    ]
+                }
+            }
+        },
+        preprocess: {
+            build: {
+                options: {
+                    context: {
+                        DEVELOP: true
+                    }
+                },
+                src: 'public/index.html',
+                dest: 'build/index.html'
+            },
+            dist: {
+                options: {
+                    context: {
+                        RELEASE: true,
+                        SHA: "<%= gitinfo.local.branch.current.shortSHA %>"
+                    }
+                },
+                src: 'public/index.html',
+                dest: 'dist/index.html'
+            }
         }
     });
 
+    grunt.loadNpmTasks('grunt-gitinfo');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-angular-templates');
+    grunt.loadNpmTasks('grunt-preprocess');
 
     grunt.registerTask('default', [
-        'copy:public',
+        'gitinfo',
         'less:development',
         'copy:bootstrap',
         'copy:ng',
         'copy:ngRoute',
         'concat:ngApp',
-        'ngtemplates:app']);
+        'ngtemplates:app',
+        'preprocess:build']);
+
+    grunt.registerTask('dist', [
+        'default',
+        'copy:build',
+        'uglify:build',
+        'preprocess:dist']);
 
 };

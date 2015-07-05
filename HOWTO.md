@@ -113,3 +113,18 @@ start the web server by running `node .` and kill it with ctrl-c
 
 ```
 
+### step 5: preprocess, uglify and otherwise create dist artifacts
+
+```bash
+
+    npm install --save-dev grunt-contrib-uglify grunt-gitinfo grunt-preprocess
+    vi Gruntfile.js
+    vi index.js
+    vi public/index.html
+    vi app/views/home.html
+    grunt
+    git add -A
+    git commit
+
+```
+

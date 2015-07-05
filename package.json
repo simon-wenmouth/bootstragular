@@ -21,6 +21,9 @@
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-gitinfo": "^0.1.7",
+    "grunt-preprocess": "^4.2.0",
     "hapi": "^8.6.1"
   }
 }
