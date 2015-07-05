@@ -4,6 +4,28 @@ module.exports = function(grunt) {
     grunt.initConfig({
         gitinfo: {},
         pkg: grunt.file.readJSON('package.json'),
+        mkdir:{
+            build: {
+                options:{
+                    create: [
+                        'build'
+                    ]
+                }
+            },
+            dist: {
+                options: {
+                    create: [
+                        "dist/<%= gitinfo.local.branch.current.shortSHA %>/",
+                        "dist/<%= gitinfo.local.branch.current.shortSHA %>/js",
+                        "dist/<%= gitinfo.local.branch.current.shortSHA %>/css"
+                    ]
+                }
+            }
+        },
+        clean: [
+            'build',
+            'dist'
+        ],
         copy: {
           bootstrap: {
             cwd: 'bower_components/bootstrap/fonts/',
@@ -45,7 +67,6 @@ module.exports = function(grunt) {
             release: {
                 options: {
                     paths: ["less/", "bower_components/bootstrap/less/"],
-                    sourceMap: true,
                     plugins: [
                         (new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]})),
                         (new (require('less-plugin-clean-css'))({keepSpecialComments: 0}))
@@ -116,15 +137,18 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-gitinfo');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-preprocess');
+    grunt.loadNpmTasks('grunt-mkdir');
 
     grunt.registerTask('default', [
         'gitinfo',
+        'mkdir:build',
         'less:develop',
         'copy:bootstrap',
         'copy:ng',
@@ -135,6 +159,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dist', [
         'gitinfo',
+        'mkdir:dist',
         'less:release',
         'copy:bootstrap',
         'copy:ng',
